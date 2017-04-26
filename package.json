@@ -1,6 +1,6 @@
 {
   "name": "zombrex",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "small footprint controller framework",
   "main": "zombrex.js",
   "scripts": {
