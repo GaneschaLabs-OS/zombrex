@@ -1,5 +1,5 @@
 # zombrex
-A angularesk small footprint controller lib. 
+Zombrex, is a controversial framework in that greatly slows the process of frontend zombification.
 
 ## preload
 Preload data from GET and POST requests.
