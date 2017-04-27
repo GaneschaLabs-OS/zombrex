@@ -1,5 +1,5 @@
 # zombrex
-Zombrex, is a controversial framework in that greatly slows the process of frontend zombification.
+Zombrex, is a controversial framework that greatly slows the process of frontend zombification.
 
 ## preload
 Preload data from GET and POST requests.
