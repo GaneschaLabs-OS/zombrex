@@ -35,7 +35,7 @@ Add views to zombrex
 ```
 
 ```javascript 
-zombrex.view('#calendar', function (scope, { BROWSER, DATA }) {    
+zombrex.view('#calendar', (scope, { BROWSER, DATA }) => {    
     const name = scope.querySelector('#name');
     
     name.innerText = DATA.name; 
@@ -55,7 +55,7 @@ zombrex.constant('BROWSER', {
 ## before 
 
 ```javascript 
-zombrex.before(function ({ BROWSER }) {
+zombrex.before(({ BROWSER }) => {
     moment.updateLocale(BROWSER.language, { week: { dow: 1 } });
 });
 ```
@@ -63,7 +63,7 @@ zombrex.before(function ({ BROWSER }) {
 ## after 
 
 ```javascript 
-zombrex.before(function ({ DATA }) {
+zombrex.before(({ DATA }) => {
     console.log(DATA);
 });
 ```
@@ -71,7 +71,7 @@ zombrex.before(function ({ DATA }) {
 ## components
 
 ```javascript 
-zombrex.component('output', function ({ BROWSER }) { 
+zombrex.component('output', ({ BROWSER }) => { 
     function browser () {
         return `Language is ${BROWSER.language} and useragent is ${BROWSER.agent}`;
     }
@@ -83,7 +83,7 @@ zombrex.component('output', function ({ BROWSER }) {
 ```
 
 ```javascript 
-zombrex.view('#dashboard', function (scope, { output }) {    
+zombrex.view('#dashboard', (scope, { output }) => {    
     output.browser();
 });
 ```
@@ -91,7 +91,7 @@ zombrex.view('#dashboard', function (scope, { output }) {
 ## zSHARE 
 
 ```javascript 
-zombrex.view('#dashboar', function (scope, { zSHARE }) {    
+zombrex.view('#dashboard', (scope, { zSHARE }) => {    
     const board = scope.querySelector('board');
     
     zSHARE.dashboard = function (text) {
@@ -101,8 +101,11 @@ zombrex.view('#dashboar', function (scope, { zSHARE }) {
 ```
 
 ```javascript 
-zombrex.view('#calendar', function (scope, { zSHARE }) {    
+zombrex.view('#calendar', (scope, { zSHARE }) => {     
     zSHARE.dashboard('invoked from calendar view');
 });
 ```
+
+## zombrex cycle 
+
 
