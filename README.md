@@ -107,5 +107,6 @@ zombrex.view('#calendar', (scope, { zSHARE }) => {
 ```
 
 ## zombrex cycle 
+[![zombrex cyle](https://github.com/GaneschaLabs-OS/zombrex/blob/master/docs/img/zombrex.jpg?raw=true)](https://github.com/GaneschaLabs-OS/zombrex/blob/master/docs/img/zombrex.jpg?raw=true)
 
 
