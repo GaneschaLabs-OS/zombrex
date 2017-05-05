@@ -1,1 +1,140 @@
-var zombrex=function(){"use strict";function n(){}function e(n,e){if("string"!=typeof n)throw new Error("Name "+n+" is not typeof string");if("function"!=typeof e)throw new Error("fn "+e+" should be a function")}function t(n,t){e(n,t),E[n]=t}function o(n,e){if("string"!=typeof n)throw new Error("Name "+n+" is not typeof string");if(void 0===e)throw new Error("obj "+e+" should not be undefined");Object.keys(s).forEach(function(e){if(e===n)throw new Error("Name "+n+" is already defined")})}function r(n,e){o(n,e),s[n]=e}function i(n){return h.before(s),Object.keys(E).forEach(function(n){s[n]=E[n](s)}),w.forEach(function(n){var e=document.querySelector(n.id);return n.fn(e,s)}),h.after(s)}function a(n){h.before=n}function f(n){h.after=n}function u(n){var e=0;if(0===n.length)return i();n.forEach(function(t){s.zAjax(t).then(function(o){if(r(t.name,o.data),e++,n.length===e)return i()})})}function c(n){window.addEventListener("DOMContentLoaded",function(){return u(n)},!0)}function g(n,e){w.forEach(function(e){if(e.id===n)throw new Error("Id "+n+" already defined")}),w.push({id:n,fn:e})}function d(n){var e=n.url,t=n.data;return(t?axios.post:axios.get)(e,t)}var s={zSHARE:{}},w=[],h={after:n,before:n},E={},l=zBROWSER={languageLong:window.navigator.userLanguage||window.navigator.language,language:(window.navigator.userLanguage||window.navigator.language).substring(0,2),agent:navigator.userAgent,online:navigator.onLine,timeFormat:(new Date).getTimezoneOffset()};return function(){r("zBROWSER",l),s.zAjax=d}(),{component:t,constant:r,preload:c,before:a,after:f,view:g}}();
+var zombrex = (function () {
+'use strict';
+
+function noop() {}
+
+var components = { zSHARE: {} };
+var views = [];
+var flow = { after: noop, before: noop };
+var lazyComponents = {};
+
+function storeCheck(name, fn) {
+    if (typeof name !== 'string') {
+        throw new Error('Name ' + name + ' is not typeof string');
+    }
+    if (typeof fn !== 'function') {
+        throw new Error('fn ' + fn + ' should be a function');
+    }
+}
+
+function storeComponent(name, fn) {
+    storeCheck(name, fn);
+    lazyComponents[name] = fn;
+}
+
+function storeCheck$1(name, obj) {
+    if (typeof name !== 'string') {
+        throw new Error('Name ' + name + ' is not typeof string');
+    }
+    if (typeof obj === 'undefined') {
+        throw new Error('obj ' + obj + ' should not be undefined');
+    }
+
+    Object.keys(components).forEach(function (k) {
+        if (k === name) {
+            throw new Error('Name ' + name + ' is already defined');
+        }
+    });
+}
+
+function storeData(name, obj) {
+    storeCheck$1(name, obj);
+    components[name] = obj;
+}
+
+function startphase(fn) {
+    flow.before(components);
+
+    Object.keys(lazyComponents).forEach(function (name) {
+        components[name] = lazyComponents[name](components);
+    });
+
+    views.forEach(function (v) {
+        var scope = document.querySelector(v.id);
+
+        return v.fn(scope, components);
+    });
+
+    return flow.after(components);
+}
+
+function before(fn) {
+    flow.before = fn;
+}
+
+function after(fn) {
+    flow.after = fn;
+}
+
+function fetchAll(loads) {
+    var counter = 0;
+
+    if (loads.length === 0) {
+        return startphase();
+    }
+
+    loads.forEach(function (load) {
+        components.zAjax(load).then(function (response) {
+            storeData(load.name, response.data);
+            counter++;
+
+            if (loads.length === counter) {
+                return startphase();
+            }
+        });
+    });
+}
+
+function preload(loads) {
+    window.addEventListener('DOMContentLoaded', function () {
+        return fetchAll(loads);
+    }, true);
+}
+
+function view(id, fn) {
+    views.forEach(function (v) {
+        if (v.id === id) {
+            throw new Error('Id ' + id + ' already defined');
+        }
+    });
+
+    views.push({
+        id: id,
+        fn: fn
+    });
+}
+
+function zAjax(load) {
+    var url = load.url,
+        data = load.data;
+
+    var ajax = !data ? axios.get : axios.post;
+
+    return ajax(url, data);
+}
+
+var zBROWSER$1 = zBROWSER = {
+   languageLong: window.navigator.userLanguage || window.navigator.language,
+   language: (window.navigator.userLanguage || window.navigator.language).substring(0, 2),
+   agent: navigator.userAgent,
+   online: navigator.onLine,
+   timeFormat: new Date().getTimezoneOffset()
+};
+
+(function bootStrap() {
+    storeData('zBROWSER', zBROWSER$1);
+    components.zAjax = zAjax;
+})();
+
+var main = {
+    component: storeComponent,
+    constant: storeData,
+    preload: preload,
+    before: before,
+    after: after,
+    view: view
+};
+
+return main;
+
+}());
