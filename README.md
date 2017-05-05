@@ -1,6 +1,9 @@
 # zombrex
 Zombrex, is a controversial framework that greatly slows the process of frontend zombification.
 
+*Note:*
+> Not production ready
+
 ## preload
 Preload data from GET and POST requests.
 
@@ -63,7 +66,7 @@ zombrex.before(({ BROWSER }) => {
 ## after 
 
 ```javascript 
-zombrex.after(({ DATA }) => {
+zombrex.before(({ DATA }) => {
     console.log(DATA);
 });
 ```
@@ -111,7 +114,7 @@ zombrex.view('#calendar', (scope, { zSHARE }) => {
 
 ## Build in Tools 
 
-`zAjax` a wrapper axios
+`zAjax` an axios wrapper 
 
 `zBROWSER` a const with following properties
 
