@@ -63,7 +63,7 @@ zombrex.before(({ BROWSER }) => {
 ## after 
 
 ```javascript 
-zombrex.before(({ DATA }) => {
+zombrex.after(({ DATA }) => {
     console.log(DATA);
 });
 ```
