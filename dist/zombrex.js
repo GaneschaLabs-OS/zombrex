@@ -113,7 +113,7 @@ function zAjax(load) {
     return ajax(url, data);
 }
 
-var zBROWSER$1 = zBROWSER = {
+var zBROWSER = {
    languageLong: window.navigator.userLanguage || window.navigator.language,
    language: (window.navigator.userLanguage || window.navigator.language).substring(0, 2),
    agent: navigator.userAgent,
@@ -122,7 +122,7 @@ var zBROWSER$1 = zBROWSER = {
 };
 
 (function bootStrap() {
-    storeData('zBROWSER', zBROWSER$1);
+    storeData('zBROWSER', zBROWSER);
     components.zAjax = zAjax;
 })();
 
