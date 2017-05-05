@@ -6,7 +6,7 @@ export default {
   moduleName: 'zombrex',
   format: 'iife',
   plugins: [
-     // uglify(), 
+      uglify(), 
       babel({
             exclude: 'node_modules/**' // only transpile our source code
       })
