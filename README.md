@@ -18,6 +18,17 @@ zombrex.preload([{
 }]);
 ```
 
+## render
+Render dynamic html before executing the view.
+
+```javascript 
+zombrex.render('#calendar', ({ BROWSER, DATA }) => {    
+    return `<div>
+        <h1>${DATA.title}</h1>
+    </div>`; 
+});
+```
+
 ## views
 Add views to zombrex
 
