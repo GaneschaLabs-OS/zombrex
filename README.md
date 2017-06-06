@@ -139,3 +139,5 @@ zombrex.view('#calendar', (scope, { zSHARE }) => {
 } 
 ```
 
+`zURLPARAM` an object returning the url parameter
+
