@@ -1,4 +1,5 @@
 # zombrex
+[![zombrex icon](https://github.com/GaneschaLabs-OS/zombrex/blob/master/docs/img/icons/zombrex_text_cut.png?raw=true)](https://github.com/GaneschaLabs-OS/zombrex/blob/master/docs/img/icons/zombrex_text_cut.png?raw=true)
 Zombrex, is a controversial framework that greatly slows the process of frontend zombification.
 
 *Note:*
