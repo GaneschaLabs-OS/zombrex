@@ -3,6 +3,10 @@ npm-debug.log
 error.txt
 name.json
 Gruntfile.js
+.babelrc
+.gitignore
+rollup.config.js
+README.md
 
 # Directories 
 node_modules/
@@ -10,6 +14,7 @@ bower_components/
 report/
 test/
 lib/
+docs/
 
 # Apple Stuff
 .DS_Store
