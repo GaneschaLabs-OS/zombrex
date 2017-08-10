@@ -103,6 +103,16 @@ zombrex.view('#dashboard', (scope, { output }) => {
 });
 ```
 
+## lambda
+
+```javascript
+zombrex.lambda(function () {
+    if (localStorage.getItem('dev')) { 
+        console.log('dev version is activate');
+    }
+});
+```
+
 ## zSHARE 
 
 ```javascript 

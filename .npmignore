@@ -5,6 +5,7 @@ name.json
 Gruntfile.js
 .babelrc
 .gitignore
+eslint.json
 rollup.config.js
 README.md
 

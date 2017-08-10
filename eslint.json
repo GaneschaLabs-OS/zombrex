@@ -1,0 +1,14 @@
+{
+    "rules": {
+        "eqeqeq": "off",
+        "curly": "warn",
+        "quotes": ["warn", "single"]
+    },
+    "parserOptions": {
+          "ecmaVersion": 7,
+          "sourceType": "module",
+          "ecmaFeatures": {
+              "jsx": true
+          }
+      }
+}
