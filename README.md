@@ -31,7 +31,8 @@ zombrex.render('#calendar', ({ BROWSER, DATA }) => {
 ```
 
 ## views
-Add views to zombrex
+Add views to zombrex. A view is similar to an angular controller. 
+It wraps a part of the dom and allows you to interacte with this part.
 
 ```html
 <html>
@@ -58,6 +59,11 @@ zombrex.view('#calendar', (scope, { BROWSER, DATA }) => {
 ```
 
 ## constants
+Adds `constants` to the zombrex scope. All types are allowed.
+
+```javascript 
+zombrex.constant(Name String, Data Everything);
+```
 
 ```javascript 
 zombrex.constant('BROWSER', {
@@ -68,6 +74,8 @@ zombrex.constant('BROWSER', {
 ```
 
 ## before 
+Executes before `components` are added, or executing the `view`. 
+Useful for pre compunting things. Has access to `constants` and build in zombrex components.
 
 ```javascript 
 zombrex.before(({ BROWSER }) => {
@@ -76,14 +84,17 @@ zombrex.before(({ BROWSER }) => {
 ```
 
 ## after 
+Is executed after `views`. Has access to everything.
 
 ```javascript 
-zombrex.before(({ DATA }) => {
+zombrex.before(({ DATA, output }) => {
     console.log(DATA);
 });
 ```
 
 ## components
+`Components` are similar to angular factorys. The are used to generate 
+reusable `components` over all `views` and [after](#after).
 
 ```javascript 
 zombrex.component('output', ({ BROWSER }) => { 
@@ -104,6 +115,7 @@ zombrex.view('#dashboard', (scope, { output }) => {
 ```
 
 ## lambda
+Executes functions after the `views` are executed and before `after` is executed.
 
 ```javascript
 zombrex.lambda(function () {
@@ -114,6 +126,7 @@ zombrex.lambda(function () {
 ```
 
 ## zSHARE 
+Adds shareable mutable variables over the zombrex scopes. 
 
 ```javascript 
 zombrex.view('#dashboard', (scope, { zSHARE }) => {    
