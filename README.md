@@ -118,7 +118,7 @@ zombrex.view('#dashboard', (scope, { output }) => {
 Executes functions after the `views` are executed and before `after` is executed.
 
 ```javascript
-zombrex.lambda(function () {
+zombrex.lambda(() => {
     if (localStorage.getItem('dev')) { 
         console.log('dev version is activate');
     }
