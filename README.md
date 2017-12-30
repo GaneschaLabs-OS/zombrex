@@ -165,3 +165,4 @@ zombrex.view('#calendar', (scope, { zSHARE }) => {
 
 `zURLPARAM` an object returning the url parameter
 
+`noop` a noop function
