@@ -3,9 +3,7 @@ import uglify from 'rollup-plugin-uglify';
 import eslint from 'rollup-plugin-eslint';
 
 export default {
-  entry: 'lib/main.js',
-  moduleName: 'zombrex',
-  format: 'iife',
+  input: 'lib/main.js',
   plugins: [
       eslint({
           envs: ['browser'],
@@ -17,5 +15,9 @@ export default {
             exclude: 'node_modules/**'
       })
   ],
-  dest: 'dist/zombrex.js'
+  output: {
+    file: 'dist/zombrex.js',
+    format: 'iife',
+    name: 'zombrex'
+  }
 };

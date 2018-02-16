@@ -149,7 +149,7 @@ zombrex.view('#calendar', (scope, { zSHARE }) => {
 
 ## Build in Tools 
 
-`zAjax` an axios wrapper 
+`zAjax` an fetch wrapper 
 
 `zBROWSER` a const with following properties
 

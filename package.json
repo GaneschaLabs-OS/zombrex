@@ -1,6 +1,6 @@
 {
   "name": "zombrex",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "small footprint controller framework",
   "main": "zombrex.js",
   "scripts": {
@@ -20,9 +20,7 @@
   "bugs": {
     "url": "https://github.com/GaneschaLabs-OS/zombrex/issues"
   },
-  "dependencies": {
-    "axios": "0.16.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-plugin-external-helpers": "^6.22.0",
