@@ -21,6 +21,7 @@ zombrex.preload([{
 
 ## render
 Render dynamic html before executing the view.
+Also replaces all linebreaks.
 
 ```javascript 
 zombrex.render('#calendar', ({ BROWSER, DATA }) => {    
