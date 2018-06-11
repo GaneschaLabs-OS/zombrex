@@ -6,7 +6,9 @@ Zombrex, is a controversial framework that greatly slows the process of frontend
 > Not production ready
 
 ## preload
-Preload data from GET and POST requests.
+Preloads data from GET and POST requests.
+This happens before the application starts to render or store
+anything.
 
 ```javascript 
 zombrex.preload([{
@@ -17,6 +19,23 @@ zombrex.preload([{
     url: '/accs',
     data: { method: 'getUser' }
 }]);
+```
+
+### preload with components
+If you need to access components use a function
+and return an array.
+
+```javascript 
+zombrex.preload(function ({ CONSTANT }) {
+    return [{
+        name: 'DATA',
+        url: `/app/${CONSTANT}`,
+    }, {
+        name: 'ACCS',
+        url: '/accs',
+        data: { method: 'getUser' }
+    }];
+});
 ```
 
 ## render
