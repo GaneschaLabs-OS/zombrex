@@ -168,9 +168,6 @@ zombrex.view('#calendar', (scope, { zSHARE }) => {
 [![zombrex cyle](https://github.com/GaneschaLabs-OS/zombrex/blob/master/docs/img/zombrex.jpg?raw=true)](https://github.com/GaneschaLabs-OS/zombrex/blob/master/docs/img/zombrex.jpg?raw=true)
 
 ## Build in Tools 
-
-`zAjax` an fetch wrapper 
-
 `zBROWSER` a const with following properties
 
 ```javascript 
