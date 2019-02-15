@@ -1,26 +1,17 @@
 {
   "name": "zombrex",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "small footprint controller framework",
   "main": "zombrex.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GaneschaLabs-OS/zombrex.git"
+    "url": "https://github.com/zombrex-corporation/zombrex"
   },
-  "keywords": [
-    "controller",
-    "framework",
-    "zombrex"
-  ],
   "author": "Oliver Jessner",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/GaneschaLabs-OS/zombrex/issues"
+    "url": "https://github.com/zombrex-corporation/zombrex/issues"
   },
-  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -30,5 +21,4 @@
     "rollup-plugin-node-resolve": "3.3.0",
     "rollup-plugin-uglify": "^3.0.0"
   },
-  "homepage": "https://github.com/GaneschaLabs-OS/zombrex#readme"
 }
