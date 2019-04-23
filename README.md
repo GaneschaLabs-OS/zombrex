@@ -180,7 +180,13 @@ zombrex.view('#calendar', (scope, { zSHARE }) => {
 } 
 ```
 
-`zURLPARAM` an object returning the url parameter
+`zURLPARAM` an object handling url params
+
+```javascript 
+zURLPARAM.set('id', '34234324324');
+zURLPARAM.get('id');
+zURLPARAM.removeAll();
+```
 
 `noop` a noop function
 
