@@ -191,3 +191,24 @@ zURLPARAM.removeAll();
 `noop` a noop function
 
 `tabReload` a function to reload your tab
+
+### Debug 
+
+```javascript 
+zombrex.view('#dashboard', (scope, { debug }) => {    
+    const log = debug('dashboard');
+    
+    log.log('start'); // outputs dashboard -> start
+});
+```
+
+If you want to stop stdout just pass log as string in an array
+to `deactivate`.
+
+```javascript 
+zombrex.view('#dashboard', (scope, { debug }) => {    
+    const log = debug('dashboard');
+    
+    log.deactivate(['log']); 
+});
+```
