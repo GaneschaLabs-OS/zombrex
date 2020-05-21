@@ -1,4 +1,3 @@
-import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
 import eslint from 'rollup-plugin-eslint';
 
@@ -10,14 +9,12 @@ export default {
           throwOnError: true,
           configFile: './eslint.json'
       }),
-      uglify(), 
-      babel({
-            exclude: 'node_modules/**'
-      })
+      uglify()
   ],
   output: {
     file: 'dist/zombrex.js',
     format: 'iife',
-    name: 'zombrex'
+    name: 'zombrex',
+    preferConst: true
   }
 };
