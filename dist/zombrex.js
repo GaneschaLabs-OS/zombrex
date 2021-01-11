@@ -1,1 +1,268 @@
-const zombrex=function(){"use strict";function n(){}const o={zSHARE:{}},e=[],t=[],r=[],i={after:n,before:n},c={};function a(n,e){!function(n,e){if("string"!=typeof n)throw new Error(`Name ${n} is not typeof string`);if(void 0===e)throw new Error(`Name ${n} -> obj ${e} should not be undefined`);Object.keys(o).forEach(function(o){if(o===n)throw new Error(`Name ${n} is already defined`)})}(n,e),o[n]=e}function f(n){return i.before(o),Object.keys(c).forEach(n=>o[n]=c[n]),Object.keys(c).forEach(n=>o[n]=o[n](o)),t.forEach(function(n){const e=document.querySelector(n.id),t=n.fn(o);if("string"!=typeof t)throw new Error(`Render Id ${n.id} does not produce any html`);e.innerHTML=t.replace(new RegExp("\n","g"),"")}),e.forEach(function(n){const e=document.querySelector(n.id);return n.fn(e,o)}),r.forEach(n=>n(o)),i.after(o)}function u(n){var o=0;if(0===n.length)return f();n.forEach(function(e){(function(n){const{url:o,data:e}=n,t=e?{method:"POST",headers:{"content-type":"application/json"},mode:"cors",body:JSON.stringify(e),credentials:"same-origin"}:{method:"GET",headers:{"content-type":"application/json"},mode:"cors",credentials:"same-origin"};return fetch(o,t)})(e).then(n=>n.json()).then(function(t){if(a(e.name,t),++o===n.length)return f()}).catch(console.log)})}function d(n){return 0===n.length||void 0===n?f():u("function"==typeof n?n(o):n)}const l={languageLong:window.navigator.userLanguage||window.navigator.language,language:(window.navigator.userLanguage||window.navigator.language).substring(0,2),agent:navigator.userAgent,online:navigator.onLine,timeFormat:(new Date).getTimezoneOffset()};function s(n,o=window.location.href){o||(o=location.href),n=n.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");const e=new RegExp("[\\?&]"+n+"=([^&#]*)").exec(o);return null==e?null:e[1]}const g={removeAll:function(){window.location.href=window.location.href.split("?")[0]},get:s,set:function(n,o){const e=s(n),t=window.location.href.includes("?")?"&":"?";if(e){if(!e||e!==o)return e&&e!==o?window.location.href=window.location.href.replace(`${n}=${e}`,`${n}=${o}`):void 0}else window.location.href+=`${t}${n}=${o}`}};function w(){return window.location.reload()}const h={log:!0};function p(n=""){return{deactivate(n){n.forEach(n=>h[n]=!1),Object.freeze(h)},arrow(){return h.log&&console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"),this},always(o){return console.log(`${n} -> ${o}`),this},object(o){return h.log&&(console.log(`${n} ->`),console.log(o)),this},log(o){return h.log&&console.log(`${n} -> ${o}`),this}}}return a("debug",p),a("zURLPARAM",g),a("zBROWSER",l),a("tabReload",w),a("noop",function(){}),{component:function(n,o){!function(n,o){if("string"!=typeof n)throw new Error(`Name ${n} is not typeof string`);if("function"!=typeof o)throw new Error(`fn ${o} should be a function`)}(n,o),c[n]=o},constant:a,preload:function(n){window.addEventListener("DOMContentLoaded",()=>d(n),!0)},before:function(n){i.before=n},render:function(n,o){t.forEach(function(o){if(o.id===n)throw new Error(`Id ${n} already defined in renders`)}),t.push({id:n,fn:o})},lambda:function(n){if("function"!=typeof n)throw new Error(`lambda ${n} is not typeof function`);r.push(n)},after:function(n){i.after=n},view:function(n,o){e.forEach(function(o){if(o.id===n)throw new Error(`Id ${n} already defined`)}),e.push({id:n,fn:o})}}}();
+const zombrex = (function () {
+    'use strict';
+
+    function noop () {}
+
+    const components = { zSHARE: {} };
+    const views = [];
+    const renders = [];
+    const lambdas = [];
+    const flow = { after: noop, before: noop };
+    const lazyComponents = {};
+
+    function storeCheck (name, fn) {
+        if (typeof name !== 'string') {
+            throw new Error(`Name ${name} is not typeof string`); 
+        }
+        if (typeof fn !== 'function') {
+            throw new Error(`fn ${fn} should be a function`); 
+        }
+    }
+
+    function storeComponent (name, fn) {
+        storeCheck(name, fn);
+        lazyComponents[name] = fn;
+    }
+
+    function storeCheck$1 (name, obj) {
+        if (typeof name !== 'string') {
+            throw new Error(`Name ${name} is not typeof string`); 
+        }
+        if (typeof obj === 'undefined') {
+            throw new Error(`Name ${name} -> obj ${obj} should not be undefined`); 
+        }
+        
+        Object.keys(components).forEach(function (k) { 
+            if (k === name) {
+                throw new Error(`Name ${name} is already defined`);
+            }
+        });
+    }
+
+    function storeData (name, obj) {
+        storeCheck$1(name, obj);
+        components[name] = obj;
+    }
+
+    // this function handles the execution flow
+    function startphase (fn) {
+        flow.before(components);
+
+        Object.keys(lazyComponents).forEach(name => components[name] = lazyComponents[name]);
+        Object.keys(lazyComponents).forEach(name => components[name] = components[name](components));
+               
+        renders.forEach(function (r) {
+            const scope = document.querySelector(r.id);
+            const html = r.fn(components);
+            
+            if (typeof html !== 'string') {
+                throw new Error(`Render Id ${r.id} does not produce any html`);
+            }
+            
+            scope.innerHTML = html.replace(new RegExp('\n', 'g'), '');
+        }); 
+        
+        views.forEach(function (v) { 
+            const scope = document.querySelector(v.id);
+
+            return v.fn(scope, components);
+        });
+        
+        lambdas.forEach(fn => fn(components));
+        
+        return flow.after(components);
+    }
+
+    function before (fn) {
+        flow.before = fn;
+    }
+
+    function after (fn) {
+        flow.after = fn;
+    }
+
+    function fetchAllFn (fn) {
+        return fetchAllArray(fn(components));
+    }
+
+    function getFetch (load) {
+        const { url, data } = load;
+        const body = data ? {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },             
+            mode: 'cors',
+            body: JSON.stringify(data),
+            credentials: 'same-origin' 
+        } : {
+            method: 'GET',
+            headers: { 'content-type': 'application/json' },             
+            mode: 'cors',
+            credentials: 'same-origin' 
+        }; 
+
+        return fetch(url, body);
+    }
+
+    function fetchAllArray (loads) {
+        var counter = 0; 
+
+        if (loads.length === 0) {
+            return startphase();
+        }
+
+        loads.forEach(function (load) {
+            getFetch(load).then(res => res.json()).then(function (data) {
+                storeData(load.name, data);
+
+                if (++counter === loads.length) {
+                    return startphase();
+                }
+            }).catch(console.log);
+        });
+    }
+
+    function fetchAll (loads) {
+        if (loads.length === 0 || typeof loads === 'undefined') {
+            return startphase();
+        }
+
+        if (typeof loads === 'function') {
+            return fetchAllFn(loads);
+        }
+
+        return fetchAllArray(loads);
+    }
+
+    function preload (loads) {
+        window.addEventListener('DOMContentLoaded', () => fetchAll(loads), true);
+    }
+
+    function view (id, fn) {
+        views.forEach(function (v) { 
+            if (v.id === id) {
+                throw new Error(`Id ${id} already defined`);
+            }
+        });
+
+        views.push({ id, fn });
+    }
+
+    function render (id, fn) {
+        renders.forEach(function (v) { 
+            if (v.id === id) {
+                throw new Error(`Id ${id} already defined in renders`);
+            }
+        });
+
+        renders.push({ id, fn });
+    }
+
+    function lambda (fn) {
+        if (typeof fn !== 'function') {
+            throw new Error(`lambda ${fn} is not typeof function`); 
+        }
+        
+        lambdas.push(fn);
+    }
+
+    function removeAll () {
+        window.location.href = window.location.href.split('?')[0];
+    }
+
+    function set (name, value) {
+        const exists = get(name);
+        const hasParams = window.location.href.includes('?');
+        const separator = hasParams ? '&' : '?';
+
+        if (!exists) {
+            window.location.href += `${separator}${name}=${value}`;
+            return;
+        }
+        if (exists && exists === value) {
+            return;
+        }
+        if (exists && exists !== value) {
+            return window.location.href = window.location.href.replace(`${name}=${exists}`, `${name}=${value}`);
+        }
+    }
+
+    function get (name, url = window.location.href) {
+        if (!url) {
+            url = location.href;
+        }
+
+        name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+        const regexS = '[\\?&]' + name + '=([^&#]*)';
+        const regex = new RegExp(regexS);
+        const results = regex.exec(url);
+
+        return results == null ? null : results[1];
+    }
+
+    const zURLPARAM = {
+        removeAll,
+        get,
+        set
+    };
+
+    function tabReload () {
+        return window.location.reload()
+    }
+
+    const logLevel = {
+        log: true,
+    };
+
+    function debug (prefix = '') {
+        return {
+            deactivate (setup) {
+                setup.forEach(s => logLevel[s] = false);
+                Object.freeze(logLevel);
+            },
+            arrow () {
+                if (logLevel.log) {
+                    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+                }
+                return this;
+            },
+            always (text) {
+                console.log(`${prefix} -> ${text}`);
+                return this;
+            },
+            object (obj) {
+                if (logLevel.log) {
+                    console.log(`${prefix} ->`);
+                    console.log(obj);
+                }
+                return this;
+            },
+            log (text) {
+                if (logLevel.log) {
+                    console.log(`${prefix} -> ${text}`);
+                }
+                return this;
+            }
+        };
+    }
+
+    (function bootStrap () {
+        storeData('debug', debug);
+        storeData('zURLPARAM', zURLPARAM);
+        storeData('tabReload', tabReload);        
+        storeData('noop', function () {});
+    }());
+
+    const main = {
+        component: storeComponent,
+        constant: storeData,
+        preload: preload,
+        before: before,
+        render: render,
+        lambda: lambda,
+        after: after,
+        view: view
+    };
+
+    return main;
+
+}());

@@ -168,18 +168,6 @@ zombrex.view('#calendar', (scope, { zSHARE }) => {
 [![zombrex cyle](https://github.com/GaneschaLabs-OS/zombrex/blob/master/docs/img/zombrex.jpg?raw=true)](https://github.com/GaneschaLabs-OS/zombrex/blob/master/docs/img/zombrex.jpg?raw=true)
 
 ## Build in Tools 
-`zBROWSER` a const with following properties
-
-```javascript 
-{
-   languageLong: window.navigator.userLanguage || window.navigator.language,
-   language: (window.navigator.userLanguage || window.navigator.language).substring(0, 2);,
-   agent: navigator.userAgent,
-   online: navigator.onLine,
-   timeFormat: new Date().getTimezoneOffset()
-} 
-```
-
 `zURLPARAM` an object handling url params
 
 ```javascript 
